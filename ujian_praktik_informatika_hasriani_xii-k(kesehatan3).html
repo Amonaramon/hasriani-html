@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JADWAL PIKET KELAS XII-K</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffe6f2;
+            color: #5a003a;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            overflow: hidden;
+            border: 3px solid #ff66b3;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff66b3, #ff3385);
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            border-bottom: 5px solid #ff0066;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .left-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .right-section {
+            flex: 2;
+            min-width: 500px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff5fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
+            border: 2px solid #ffb3d9;
+        }
+
+        .card h2 {
+            color: #cc0066;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #ff80bf;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            color: #ff3399;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #99004d;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffb3d9;
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: white;
+            color: #5a003a;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff3399;
+            box-shadow: 0 0 0 3px rgba(255, 51, 153, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(to right, #ff66b3, #ff3385);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #ff3385, #ff0066);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(255, 51, 153, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: #ff66b3;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ffccdd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff5fa;
+        }
+
+        tr:hover {
+            background-color: #ffe6f2;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-piket {
+            background-color: #ffccdd;
+            color: #cc0066;
+        }
+
+        .status-tidak-piket {
+            background-color: #e6e6e6;
+            color: #666;
+        }
+
+        .students-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .student-item {
+            background-color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(255, 105, 180, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 5px solid #ff66b3;
+        }
+
+        .student-item.piket {
+            border-left-color: #ff0066;
+        }
+
+        .student-item.tidak-piket {
+            border-left-color: #ffb3d9;
+        }
+
+        .student-item i {
+            color: #ff3399;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffccdd;
+            color: #99004d;
+            font-weight: 500;
+            border-top: 2px solid #ffb3d9;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-section, .right-section {
+                min-width: 100%;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calendar-alt"></i> JADWAL PIKET KELAS XII-K</h1>
+            <p>Website Interaktif untuk Mengelola Jadwal Piket Kelas</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-section">
+                <div class="card">
+                    <h2><i class="fas fa-plus-circle"></i> Tambah Data Piket</h2>
+                    <form id="piketForm">
+                        <div class="form-group">
+                            <label for="nama"><i class="fas fa-user"></i> Nama Siswa</label>
+                            <input type="text" id="nama" placeholder="Masukkan nama siswa" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hari"><i class="fas fa-calendar-day"></i> Hari</label>
+                            <select id="hari" required>
+                                <option value="">Pilih hari</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                                <option value="Sabtu">Sabtu</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tanggal"><i class="fas fa-calendar"></i> Tanggal</label>
+                            <input type="date" id="tanggal" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tugas"><i class="fas fa-tasks"></i> Tugas Piket</label>
+                            <select id="tugas" required>
+                                <option value="">Pilih tugas</option>
+                                <option value="Menyapu kelas">Menyapu kelas</option>
+                                <option value="Membersihkan papan tulis">Membersihkan papan tulis</option>
+                                <option value="Mengatur kursi dan meja">Mengatur kursi dan meja</option>
+                                <option value="Membersihkan jendela">Membersihkan jendela</option>
+                                <option value="Mengecek kebersihan">Mengecek kebersihan</option>
+                                <option value="Membuang sampah">Membuang sampah</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> Simpan Data Piket
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-users"></i> Daftar Siswa</h2>
+                    <div class="students-list" id="studentsList">
+                        <!-- Data siswa akan ditampilkan di sini oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <div class="card">
+                    <h2><i class="fas fa-table"></i> Jadwal Piket Kelas XII-K</h2>
+                    <div class="table-container">
+                        <table id="piketTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Hari</th>
+                                    <th>Tanggal</th>
+                                    <th>Tugas Piket</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="piketTableBody">
+                                <!-- Data jadwal piket akan ditampilkan di sini oleh JavaScript -->
+                            </tbody>
+                        </table>
+                        <div id="emptyMessage" class="empty-message">
+                            <i class="fas fa-calendar-times fa-2x"></i>
+                            <p>Belum ada data jadwal piket. Silakan tambahkan data melalui form di sebelah kiri.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-chart-pie"></i> Statistik Piket</h2>
+                    <div class="stats-container">
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #ffccdd, #ffb3d9); padding: 20px; border-radius: 10px; text-align: center;">
+                                <h3 id="totalPiket">0</h3>
+                                <p>Total Jadwal Piket</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #ff99cc, #ff66b3); padding: 20px; border-radius: 10px; text-align: center; color: white;">
+                                <h3 id="totalSiswaPiket">0</h3>
+                                <p>Siswa yang Piket</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #ffe6f2, #ffccdd); padding: 20px; border-radius: 10px; text-align: center;">
+                                <h3 id="totalSiswaTidakPiket">0</h3>
+                                <p>Siswa yang Tidak Piket</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Jadwal Piket Kelas XII-K &copy; 2023 - Website Interaktif dengan Nuansa Warna Pink</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data siswa kelas XII-K (dapat diperbarui)
+        const students = [
+            "Hasriani Aulia Putri", "Ariiqah Kynera Ryesha", "Nur Syafina Putri Azura", "Ara Azmi Jamaica", "Muhammas Suriansyah",
+            "Vara Febrina Saputri", "Rezky Anggy Pratiwi", "Valincia Enata Abdahani", "Moza Nabila", "Kayla Disty",
+            "Karina Aulia", "Huzna", "Meiriany", "Aurel syafa", "Muhammad arfan",
+            "Gusti fadlan", "Faiz Satya", "Afiqah Dwi", "Nurhidayah", "Syalsiah",
+            "Marsyah", "Nayaka", "Nur Azmi"
+        ];
+
+        // Data awal jadwal piket
+        let piketData = [
+            { id: 1, nama: " Hasriani Aulia Putri", hari: "Senin", tanggal: "2023-10-02", tugas: "Menyapu kelas" },
+            { id: 2, nama: "Ariiqah Kynera", hari: "Selasa", tanggal: "2023-10-03", tugas: "Membersihkan papan tulis" },
+            { id: 3, nama: "Nur Syafina", hari: "Rabu", tanggal: "2023-10-04", tugas: "Mengatur kursi dan meja" },
+            { id: 4, nama: "Muhammad suriansyah", hari: "Kamis", tanggal: "2023-10-05", tugas: "Membersihkan jendela" },
+            { id: 5, nama: "Ara Azmi", hari: "Jumat", tanggal: "2023-10-06", tugas: "Mengecek kebersihan" }
+        ];
+
+        // Inisialisasi variabel
+        let nextId = 6;
+
+        // Fungsi untuk menampilkan daftar siswa
+        function renderStudentsList() {
+            const studentsList = document.getElementById('studentsList');
+            studentsList.innerHTML = '';
+            
+            // Ambil daftar siswa yang sudah memiliki jadwal piket
+            const studentsWithPiket = piketData.map(item => item.nama);
+            
+            students.forEach(student => {
+                const isPiket = studentsWithPiket.includes(student);
+                const studentItem = document.createElement('div');
+                studentItem.className = `student-item ${isPiket ? 'piket' : 'tidak-piket'}`;
+                studentItem.innerHTML = `
+                    <i class="fas ${isPiket ? 'fa-user-check' : 'fa-user'}"></i>
+                    <div>
+                        <strong>${student}</strong>
+                        <div class="status-badge ${isPiket ? 'status-piket' : 'status-tidak-piket'}">
+                            ${isPiket ? 'Sudah piket' : 'Belum piket'}
+                        </div>
+                    </div>
+                `;
+                studentsList.appendChild(studentItem);
+            });
+            
+            // Update statistik
+            updateStatistics();
+        }
+
+        // Fungsi untuk memperbarui statistik
+        function updateStatistics() {
+            const studentsWithPiket = [...new Set(piketData.map(item => item.nama))];
+            const totalPiket = piketData.length;
+            const totalSiswaPiket = studentsWithPiket.length;
+            const totalSiswaTidakPiket = students.length - totalSiswaPiket;
+            
+            document.getElementById('totalPiket').textContent = totalPiket;
+            document.getElementById('totalSiswaPiket').textContent = totalSiswaPiket;
+            document.getElementById('totalSiswaTidakPiket').textContent = totalSiswaTidakPiket;
+        }
+
+        // Fungsi untuk menampilkan tabel jadwal piket
+        function renderPiketTable() {
+            const tableBody = document.getElementById('piketTableBody');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (piketData.length === 0) {
+                tableBody.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            tableBody.innerHTML = '';
+            
+            piketData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${item.nama}</strong></td>
+                    <td>${item.hari}</td>
+                    <td>${formatDate(item.tanggal)}</td>
+                    <td>${item.tugas}</td>
+                    <td>
+                        <button onclick="deletePiket(${item.id})" class="btn" style="padding: 8px 15px; font-size: 0.9rem; width: auto;">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk memformat tanggal
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Fungsi untuk menghapus data piket
+        function deletePiket(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                piketData = piketData.filter(item => item.id !== id);
+                renderPiketTable();
+                renderStudentsList();
+            }
+        }
+
+        // Fungsi untuk menangani submit form
+        document.getElementById('piketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ambil nilai dari form
+            const nama = document.getElementById('nama').value.trim();
+            const hari = document.getElementById('hari').value;
+            const tanggal = document.getElementById('tanggal').value;
+            const tugas = document.getElementById('tugas').value;
+            
+            // Validasi
+            if (!nama || !hari || !tanggal || !tugas) {
+                alert('Harap lengkapi semua field!');
+                return;
+            }
+            
+            // Tambah data baru
+            const newPiket = {
+                id: nextId++,
+                nama,
+                hari,
+                tanggal,
+                tugas
+            };
+            
+            piketData.push(newPiket);
+            
+            // Reset form
+            document.getElementById('piketForm').reset();
+            
+            // Perbarui tampilan
+            renderPiketTable();
+            renderStudentsList();
+            
+            // Tampilkan pesan sukses
+            alert(`Data piket untuk ${nama} berhasil ditambahkan!`);
+        });
+
+        // Fungsi untuk mengisi tanggal dengan hari ini secara default
+        function setDefaultDate() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('tanggal').value = formattedDate;
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            setDefaultDate();
+            renderPiketTable();
+            renderStudentsList();
+        });
+    </script>
+</body>
+</html>
